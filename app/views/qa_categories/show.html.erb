@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ol class="breadcrumb">
+        <li><%= link_to "ホーム", home_path %></li>
+        <li><%= link_to "Q&A", qa_categories_path %></li>
+        <li class="active">カテゴリ設定</li>
+      </ol>
+
+      <%= render partial: "shared/notice" %>
+      <%= render partial: "shared/alert" %>
+      
+      <div class="well">
+        <legend><%= @qa_category.name %>カテゴリの詳細</legend>
+
+        <table class="table table-striped table-bordered table-hover table-condensed table-condensed">
+          <tbody>
+            <tr>
+              <th>カテゴリ名</th>
+              <td><%= @qa_category.name %></td>
+            </tr>
+            <tr>
+              <th>説明</th>
+              <td><%= @qa_category.description %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="well">
+        <legend>カテゴリ管理者</legend>
+
+        <% if @qa_category.users.count > 0 %>
+        <table class="table table-striped table-hover table-condensed table-condensed">
+          <thead>
+            <tr>
+              <th>名前</th>
+              <th>メールアドレス</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @qa_category.users.each do |user| %>
+            <tr>
+              <td><%= link_to "#{user.fullname} (#{user.fullname_kana})", user_path(user) %></td>
+              <td><%= user.email %></td>
+              <td align="right">
+                <%= link_to del_user_qa_category_path(@qa_category, user_id: user.id), class: "btn btn-danger btn-xs", method: :delete, data: {confirm: "削除しますか?"} do %>
+                <span class="glyphicon glyphicon-remove-circl"></span> 削除
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% else %>
+        <p>カテゴリ管理者は存在しません。</p>
+        <% end %>
+      </div>
+
+      <div class="well">
+        <legend>カテゴリ管理者追加</legend>
+
+        <%= form_tag add_user_qa_category_path(@qa_category) do %>
+          <div class="input-group">
+            <%= email_field_tag :email, nil, class: "form-control", placeholder: "メールアドレス", maxlength: 100, required: true %>
+            <span class="input-group-btn">
+              <button class="btn btn-inverse" type="submit">追加</button>
+            </span>
+          </div>
+        <% end %>
+
+        <div class="mt10">
+          <a href="#user_search_modal" class="btn btn-inverse btn-sm" data-toggle="modal">ユーザ検索</a>
+        </div>
+      </div>
+
+      <div id="user_search_modal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <a href="javascript:void(0)" class="close" data-dismiss="modal">&times;</a>
+              <h4 class="modal-title">ユーザ検索</h4>
+            </div>
+
+            <div class="modal-body">
+              <div class="input-group">
+                <input id="user_keyword" class="form-control" type="text" placeholder="Search">
+                <span class="input-group-btn">
+                  <button id="execute_user_search" class="btn btn-inverse">検索</button>
+                </span>
+              </div>
+
+              <div class="mt10">
+                <table id="search_user_list" class="table table-striped table-condensed table-hover">
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

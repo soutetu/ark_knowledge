@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><%= link_to "ホーム", home_path %></li>
+        <li><%= link_to "Q&A", qa_categories_path %></li>
+        <li><%= link_to @question.qa_category.name, qa_category_questions_path(@question.qa_category) %></li>
+        <li><%= link_to abbreviation(@question.title), question_path(@question) %></li>
+        <li class="active">質問編集</li>
+      </ol>
+      
+      <div class="well">
+        <legend>質問編集</legend>
+
+        <%= render "form" %>
+      </div>
+    </div>
+  </div>
+</div>

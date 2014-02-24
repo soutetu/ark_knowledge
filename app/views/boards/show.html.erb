@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><%= link_to "ホーム", home_path %></li>
+        <li><%= link_to "トピック", board_categories_path %></li>
+        <li><%= link_to @board.board_category.name, board_category_boards_path(@board.board_category) %></li>
+        <li class="active"><%= abbreviation @board.title %></li>
+      </ol>
+
+      <%= render partial: "shared/notice" %>
+      <%= render partial: "shared/errors", object: @comment.errors if @comment %>
+
+      <div class="well">
+        <legend><%= @board.title %></legend>
+
+        <div class="mb20"><%= markdown @board.body %></div>
+
+        <span class="label label-info">投稿者</span> <%= link_to @board.user.fullname, user_path(@board.user) %>
+        <span class="label label-info">登録</span> <%= time_format @board.created_at %>
+        <span class="label label-info">更新</span> <%= time_format @board.updated_at %>
+
+        <% if current_user.id == @board.user.id || current_user.super_user? %>
+        <div class="mt10">
+          <%= link_to "編集", edit_board_path(@board), class: "btn btn-warning btn-sm" %>
+          <%= link_to "削除", board_path(@board), method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "削除しますか?"} %>
+        </div>
+        <% end %>
+      </div>
+
+      <% @comments.each do |comment| %>
+      <div class="well">
+        <div class="mb20"><%= markdown comment.message %></div>
+
+        <span class="label label-info">投稿者</span> <%= link_to comment.user.fullname, user_path(comment.user) %>
+        <span class="label label-info">日時</span> <%= time_format comment.created_at %>
+
+        <% if current_user.id == comment.user.id || current_user.super_user? %>
+        <div class="mt10">
+          <%= link_to "削除", uncomment_board_path(@board, comment), method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "削除しますか?"} %>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
+
+      <%= form_tag comment_board_path(@board) do %>
+        <div class="form-group">
+          <%= label_tag :message, "", class: "control-label sr-only" %>
+          <%= text_area_tag :message, @message, class: "form-control resize", placeholder: "本文", required: true %>
+        </div>
+
+        <%= submit_tag "コメント", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

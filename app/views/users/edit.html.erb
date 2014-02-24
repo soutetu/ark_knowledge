@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ol class="breadcrumb">
+        <li><%= link_to "ホーム", home_path %></li>
+        <li><%= link_to "ユーザ一覧", users_path %></li>
+        <li class="active">ユーザ編集</li>
+      </ol>
+      
+      <div class="well">
+        <legend>ユーザ編集</legend>
+
+        <%= render "form" %>
+
+        <div class="mt10">
+          <%= link_to "削除", user_path(@user), method: :delete, class: "btn btn-danger", data: {confirm: "削除しますか?"} %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

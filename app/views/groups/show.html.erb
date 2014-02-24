@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ol class="breadcrumb">
+        <li><%= link_to "ホーム", home_path %></li>
+        <li><%= link_to "グループ一覧", groups_path %></li>
+        <li class="active">グループ情報</li>
+      </ol>
+
+      <%= render partial: "shared/notice" %>
+      <%= render partial: "shared/alert" %>
+
+      <div class="well">
+        <legend>グループ情報</legend>
+
+        <table class="table table-striped table-bordered table-hover table-condensed table-condensed">
+          <tbody>
+            <tr>
+              <th>グループ名</th>
+              <td><%= @group.name %></td>
+            </tr>
+            <tr>
+              <th>説明</th>
+              <td><%= @group.description %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="well">
+        <legend>所属ユーザ</legend>
+
+        <% if @group.users.count > 0 %>
+        <table class="table table-striped table-hover table-condensed table-condensed">
+          <thead>
+            <tr>
+              <th>名前</th>
+              <th>メールアドレス</th>
+              <% if current_user.super_user? %>
+              <th></th>
+              <% end %>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @group.users.each do |user| %>
+            <tr>
+              <td><%= link_to "#{user.fullname} (#{user.fullname_kana})", user_path(user) %></td>
+              <td><%= user.email %></td>
+              <% if current_user.super_user? %>
+              <td align="right">
+                <%= link_to del_user_group_path(@group, user_id: user.id), class: "btn btn-danger btn-xs", method: :delete, data: {confirm: "削除しますか?"} do %>
+                <span class="glyphicon glyphicon-remove-circle"></span> 削除
+                <% end %>
+              </td>
+              <% end %>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% else %>
+        <p>所属ユーザは存在しません。</p>
+        <% end %>
+      </div>
+
+      <% if current_user.super_user? %>
+      <div class="well">
+        <legend>ユーザ追加</legend>
+
+        <%= form_tag add_user_group_path(@group) do %>
+          <div class="input-group">
+            <%= email_field_tag :email, nil, class: "form-control", placeholder: "メールアドレス", maxlength: 100, required: true %>
+            <span class="input-group-btn">
+              <button class="btn btn-inverse" type="submit">追加</button>
+            </span>
+          </div>
+        <% end %>
+
+        <div class="mt10">
+          <a href="#user_search_modal" class="btn btn-inverse btn-sm" data-toggle="modal">ユーザ検索</a>
+        </div>
+      </div>
+
+      <div id="user_search_modal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <a href="javascript:void(0)" class="close" data-dismiss="modal">&times;</a>
+              <h4 class="modal-title">ユーザ検索</h4>
+            </div>
+
+            <div class="modal-body">
+              <div class="input-group">
+                <input id="user_keyword" class="form-control" type="text" placeholder="Search">
+                <span class="input-group-btn">
+                  <button id="execute_user_search" class="btn btn-inverse">検索</button>
+                </span>
+              </div>
+
+              <div class="mt10">
+                <table id="search_user_list" class="table table-striped table-condensed table-hover">
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><%= link_to "ホーム", home_path %></li>
+        <li class="active">ユーザ情報</li>
+      </ol>
+
+      <%= render partial: "shared/notice" %>
+      <%= render partial: "shared/alert" %>
+
+      <div class="well">
+        <legend>パスワード変更</legend>
+
+        <p>パスワードは6文字以上で半角小文字アルファベットと半角数字を含めて下さい。<br>
+        パスワード変更をすると自動的にログアウトされます。新しいパスワードで再度ログインして下さい。</p>
+
+        <%= form_tag update_password_path, method: :patch do %>
+
+        <div class="form-group">
+          <label for="old_password" class="sr-only control-label">現在のパスワード</label>
+          <%= password_field_tag :old_password, nil, placeholder: "現在のパスワード", class: "form-control", required: true %>
+        </div>
+
+        <div class="form-group">
+          <label for="new_password" class="sr-only control-label">新しいパスワード</label>
+          <%= password_field_tag :new_password, nil, placeholder: "新しいパスワード", class: "form-control", required: true %>
+        </div>
+
+        <div class="form-group">
+          <label for="new_password_confirmation" class="sr-only control-label">新しいパスワード</label>
+          <%= password_field_tag :new_password_confirmation, nil, placeholder: "新しいパスワードを再入力して下さい", class: "form-control", required: true %>
+        </div>
+
+        <%= submit_tag "パスワードを変更", class: "btn btn-primary" %>
+
+        <% end %>
+      </div>
+
+      <div class="well">
+        <legend>ユーザ情報変更</legend>
+
+        <%= form_for current_user, url: update_profile_path, method: :patch do |f| %>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :last_name, "", class: "control-label sr-only" %>
+              <%= f.text_field :last_name, class: "form-control", placeholder: "苗字", maxlength: 20 %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :first_name, "", class: "control-label sr-only" %>
+              <%= f.text_field :first_name, class: "form-control", placeholder: "名前", maxlength: 20 %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :last_name_kana, "", class: "control-label sr-only" %>
+              <%= f.text_field :last_name_kana, class: "form-control", placeholder: "苗字(カナ)", maxlength: 40 %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :first_name_kana, "", class: "control-label sr-only" %>
+              <%= f.text_field :first_name_kana, class: "form-control", placeholder: "名前(カナ)", maxlength: 40 %>
+            </div>
+          </div>
+        </div>
+
+        <%= submit_tag "ユーザ情報を変更", class: "btn btn-primary" %>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

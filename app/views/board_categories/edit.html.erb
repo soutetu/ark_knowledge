@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ol class="breadcrumb">
+        <li><%= link_to "ホーム", home_path %></li>
+        <li><%= link_to "トピック", board_categories_path %></li>
+        <li class="active">カテゴリ編集</li>
+      </ol>
+      
+      <div class="well">
+        <legend>カテゴリ編集</legend>
+
+        <%= render "form" %>
+
+        <div class="mt10">
+          <%= link_to "削除", board_category_path(@board_category), method: :delete, class: "btn btn-danger", data: {confirm: "削除しますか?"} %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

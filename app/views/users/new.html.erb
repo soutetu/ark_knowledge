@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ol class="breadcrumb">
+        <li><%= link_to "ホーム", home_path %></li>
+        <li><%= link_to "ユーザ一覧", users_path %></li>
+        <li class="active">ユーザ登録</li>
+      </ol>
+      
+      <div class="well">
+        <legend>ユーザ登録</legend>
+
+        <p class="text-info">ユーザ登録が完了すると入力したメールアドレス宛てにパスワードを送信します。</p>
+
+        <%= render "form" %>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><%= link_to "ホーム", home_path %></li>
+        <li><%= link_to "Q&A", qa_categories_path %></li>
+        <li class="active"><%= @qa_category.name %></li>
+      </ol>
+
+      <%= render partial: "shared/notice" %>
+
+      <legend><%= @qa_category.name %></legend>
+
+      <p><%= link_to "質問を投稿", new_qa_category_question_path(@qa_category), class: "btn btn-inverse" %></p>
+
+      <% if @qa_category.questions.count > 0 %>
+      <table id="boards" class="table table-striped table-hover table-condensed table-condensed">
+        <thead>
+          <tr>
+            <th>タイトル</th>
+            <th>投稿日時</th>
+            <th>投稿者</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @qa_category.questions.each do |question| %>
+          <tr>
+            <td><%= link_to question.title, question_path(question) %></td>
+            <td><%= time_format question.created_at %></td>
+            <td><%= link_to question.user.fullname, user_path(question.user) %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% else %>
+      <p>質問が投稿されていません</p>
+      <% end %>
+      
+    </div>
+  </div>
+</div>

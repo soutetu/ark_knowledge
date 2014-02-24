@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ol class="breadcrumb">
+        <li><%= link_to "ホーム", home_path %></li>
+        <li><%= link_to "グループ一覧", groups_path %></li>
+        <li class="active">グループ登録</li>
+      </ol>
+      
+      <div class="well">
+        <legend>グループ登録</legend>
+
+        <%= render "form" %>
+      </div>
+    </div>
+  </div>
+</div>

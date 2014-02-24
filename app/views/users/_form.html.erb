@@ -1,0 +1,51 @@
+<%= form_for @user do |f| %>
+  <%= render partial: "shared/errors", object: @user.errors %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :last_name, "", class: "control-label sr-only" %>
+        <%= f.text_field :last_name, class: "form-control", placeholder: "苗字", maxlength: 20, required: true %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :first_name, "", class: "control-label sr-only" %>
+        <%= f.text_field :first_name, class: "form-control", placeholder: "名前", maxlength: 20, required: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :last_name_kana, "", class: "control-label sr-only" %>
+        <%= f.text_field :last_name_kana, class: "form-control", placeholder: "苗字(カナ)", maxlength: 40, required: true %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :first_name_kana, "", class: "control-label sr-only" %>
+        <%= f.text_field :first_name_kana, class: "form-control", placeholder: "名前(カナ)", maxlength: 40, required: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email, "", class: "control-label sr-only" %>
+    <%= f.email_field :email, class: "form-control", placeholder: "メールアドレス", required: true %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :role, "", class: "control-label sr-only" %>
+        <%= f.select :role, {"一般" => 0, "管理者" => 1}, {}, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <%= f.submit "保存", class: "btn btn-primary" %>
+<% end %>

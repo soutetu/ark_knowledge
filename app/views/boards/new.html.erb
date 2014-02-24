@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><%= link_to "ホーム", home_path %></li>
+        <li><%= link_to "トピック", board_categories_path %></li>
+        <li><%= link_to @board_category.name, board_category_boards_path(@board_category) %></li>
+        <li class="active">トピック投稿</li>
+      </ol>
+      
+      <div class="well">
+        <legend>トピック投稿</legend>
+
+        <%= render "form" %>
+      </div>
+    </div>
+  </div>
+</div>

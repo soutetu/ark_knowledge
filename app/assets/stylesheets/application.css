@@ -1,0 +1,63 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require bootstrap.min
+ *= require flat-ui
+ *= require_self
+ *= require_tree .
+ */
+
+body {
+  height: 100%;
+  background-image: url(/img/background.png);
+  -webkit-text-size-adjust: 100%;
+  font-family: 'Belleza', 'Lucida Grande', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+}
+
+footer {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  text-align: center;
+  background-color: transparent;
+}
+
+footer #copyright {
+  color: gray;
+}
+
+ol.breadcrumb {
+  background-color: transparent;
+}
+
+div.jumbotron {
+  margin-top: 30px;
+  text-align: center;
+  background-color: transparent;
+}
+
+.mt10 {
+  margin-top: 10px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.sort_column_default:after {
+  content: url(/img/bg.gif);
+}
+
+.sort_column_asc:after {
+  content: url(/img/asc.gif);
+}
+
+.sort_column_desc:after {
+  content: url(/img/desc.gif);
+}
